@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#f8fafc] text-slate-800 font-sans;
+  }
+}
+
+/* Glassmorphic Effects */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Status Badges */
+.badge-Open {
+  @apply bg-slate-100 text-slate-700 border-slate-300;
+}
+.badge-Assigned {
+  @apply bg-blue-50 text-blue-700 border-blue-200;
+}
+.badge-InProgress, .badge-In\ Progress {
+  @apply bg-amber-50 text-amber-700 border-amber-200;
+}
+.badge-Resolved {
+  @apply bg-emerald-50 text-emerald-700 border-emerald-200;
+}
+.badge-Closed {
+  @apply bg-green-50 text-green-700 border-green-200;
+}
+.badge-Reopened {
+  @apply bg-rose-50 text-rose-700 border-rose-200;
+}
+
+/* Priority Badges */
+.priority-Low {
+  @apply bg-slate-100 text-slate-600 border-slate-200;
+}
+.priority-Medium {
+  @apply bg-sky-50 text-sky-700 border-sky-200;
+}
+.priority-High {
+  @apply bg-orange-50 text-orange-700 border-orange-200;
+}
+.priority-Critical {
+  @apply bg-red-50 text-red-700 border-red-200 animate-pulse;
+}
+
+/* Pulse Glows */
+@keyframes softPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
