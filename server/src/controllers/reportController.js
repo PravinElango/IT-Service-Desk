@@ -59,7 +59,7 @@ function getDashboardStats(req, res) {
     // Engineer Workload (for Admin)
     let engineerWorkload = [];
     if (user.role === 'super_admin') {
-      engineerWorkload = db.prepare(`
+      const rawEngineers = db.prepare(`
         SELECT
           u.id,
           u.name,
@@ -70,9 +70,14 @@ function getDashboardStats(req, res) {
         FROM users u
         WHERE u.role = 'engineer' AND u.is_active = 1
         ORDER BY active_tickets DESC
-      `).all().map(eng => ({
+      `).all();
+
+      // Attach skills for each engineer
+      const skillsStmt = db.prepare(`SELECT skill FROM engineer_skills WHERE user_id = ?`);
+      engineerWorkload = rawEngineers.map(eng => ({
         ...eng,
-        avg_time_minutes: eng.avg_time_minutes ? Math.round(eng.avg_time_minutes) : 0
+        avg_time_minutes: eng.avg_time_minutes ? Math.round(eng.avg_time_minutes) : 0,
+        skills: skillsStmt.all(eng.id).map(r => r.skill)
       }));
     }
 
